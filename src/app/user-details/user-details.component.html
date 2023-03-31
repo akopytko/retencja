@@ -1,0 +1,12 @@
+<div class="card" *ngIf="loading" class="center">
+    <p-progressSpinner styleClass="w-2rem h-2rem" strokeWidth="2" fill="var(--surface-ground)" animationDuration="1s"></p-progressSpinner>
+</div>
+<p-card *ngIf="user" header="{{user.first_name}} {{user.last_name}}" subheader="{{user.email}}" [style]="{ width: '360px' }">
+    <ng-template pTemplate="header">
+        <img alt="Card" src='{{user.avatar}}' />
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button label="Powrót" icon="pi pi-arrow-circle-left" [routerLink]="'/users'" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+        <button pButton (click)="onUserClick(user.id)" [icon]="user.favorite ? 'pi pi-star-fill' : 'pi pi-star'"></button>
+    </ng-template>
+</p-card>

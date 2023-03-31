@@ -1,0 +1,42 @@
+<p-toast></p-toast>
+<p-table #table [value]="users" dataKey="id" [paginator]="true" [showCurrentPageReport]="true" [rows]="4"
+	[rowsPerPageOptions]="[4,8,12]" [loading]="loading" [globalFilterFields]="['first_name','last_name']"
+	[tableStyle]="{ 'min-width': '50rem' }">
+	<ng-template pTemplate="caption">
+		<div class="flex">
+			<span class="p-input-icon-left ml-auto">
+				<i class="pi pi-search"></i>
+				<input pInputText type="text" (input)="table.filterGlobal(getEventValue($event), 'contains')"
+					placeholder="Szukaj" />
+			</span>
+			<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+				(click)="clear(table)"></button>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th>Imię</th>
+			<th>Nazwisko</th>
+			<th>Email</th>
+			<th>Szczegóły</th>
+			<th>Avatar</th>
+			<th>Ulubiony</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-user>
+		<tr>
+			<td>{{ user.first_name }}</td>
+			<td>{{ user.last_name }}</td>
+			<td>{{ user.email }}</td>
+			<td>
+				<p-button label="Szczegóły" styleClass="p-button-info p-button-text" [routerLink]="['/user', user.id]"
+					routerLinkActive="active"></p-button>
+			</td>
+			<td><p-avatar image="{{ user.avatar }}" styleClass="mr-2" size="large" shape="circle"></p-avatar></td>
+			<td>
+				<button pButton (click)="onUserClick(user)"
+					[icon]="user.favorite ? 'pi pi-star-fill' : 'pi pi-star'"></button>
+			</td>
+		</tr>
+	</ng-template>
+</p-table>
